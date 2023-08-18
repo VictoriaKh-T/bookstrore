@@ -1,4 +1,4 @@
-package mate.academy.bookstore.repository.book;
+package mate.academy.bookstore.repository.book.spec;
 
 import java.util.Arrays;
 import mate.academy.bookstore.model.Book;
