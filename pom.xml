@@ -20,7 +20,6 @@
         </maven.checkstyle.plugin.configLocation>
         <lombok.mapstruct.building.version>0.2.0</lombok.mapstruct.building.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-
     </properties>
     <dependencies>
         <dependency>
@@ -77,6 +76,21 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -84,7 +98,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.3.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version> 9.3</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <phase>compile</phase>
@@ -95,14 +116,13 @@
                 </executions>
                 <configuration>
                     <configLocation>${maven.checkstyle.plugin.configLocation}</configLocation>
-                    <encoding>UTF-8</encoding>
+
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
                     <sourceDirectories>
                         <sourceDirectory>src/main/java</sourceDirectory>
                     </sourceDirectories>
-
                 </configuration>
             </plugin>
             <plugin>
