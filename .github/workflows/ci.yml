@@ -22,8 +22,12 @@ jobs:
       - uses: mate-academy/auto-approve-action@v2
         if: ${{ github.event.pull_request && success() }}
         with:
-          GITHUB_TOKEN: ${{ github.token }}
+          owner: VictoriaKh_T
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.ACTIONS_TOKEN }}
       - uses: mate-academy/auto-reject-action@v2
         if: ${{ github.event.pull_request && failure() }}
         with:
-          GITHUB_TOKEN: ${{ github.token }}
+          owner: VictoriaKh_T
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.ACTIONS_TOKEN }}
