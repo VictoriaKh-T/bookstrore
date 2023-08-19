@@ -19,9 +19,11 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
-
       - uses: mate-academy/auto-approve-action@v2
         if: ${{ github.event.pull_request && success() }}
-
+        with:
+          github-token: ${{ github.token  }}
       - uses: mate-academy/auto-reject-action@v2
         if: ${{ github.event.pull_request && failure() }}
+        with:
+          github-token: ${{ github.token }}
