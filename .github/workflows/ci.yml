@@ -22,8 +22,8 @@ jobs:
       - uses: mate-academy/auto-approve-action@v2
         if: ${{ github.event.pull_request && success() }}
         with:
-          GITHUB_TOKEN: ${{ github.token  }}
+          github_token: ${{ github.token  }}
       - uses: mate-academy/auto-reject-action@v2
         if: ${{ github.event.pull_request && failure() }}
         with:
-          GITHUB_TOKEN: ${{ github.token  }}
+          github_token: ${{ github.token  }}
