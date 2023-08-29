@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-books
+      author: ViktoriiaKh
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column: {name: title, value: Book 1 Title}
+              - column: {name: author, value: Author 1}
+              - column: {name: isbn, value: 978-1234567890}
+              - column: {name: price, value: 19.99}
+              - column: {name: description, value: Description for Book 1}
+              - column: {name: cover_image, value: book1_cover.jpg}
+        - insert:
+            tableName: books
+            columns:
+              - column: {name: title, value: Book 2 Title}
+              - column: {name: author, value: Author 2}
+              - column: {name: isbn, value: 978-2345678901}
+              - column: {name: price, value: 24.99}
+              - column: {name: description, value: Description for Book 2}
+              - column: {name: cover_image, value: book2_cover.jpg}
+        - insert:
+            tableName: books
+            columns:
+              - column: { name: title, value: Book 6 Title }
+              - column: { name: author, value: Author 6 }
+              - column: { name: isbn, value: 978-1234567896 }
+              - column: { name: price, value: 14.49 }
+              - column: { name: description, value: Description for Book 6 }
+              - column: { name: cover_image, value: book6_cover.jpg }
+        - insert:
+              tableName: books
+              columns:
+                - column: { name: title, value: Book 7 Title }
+                - column: { name: author, value: Author 7 }
+                - column: { name: isbn, value: 978-1234567897 }
+                - column: { name: price, value: 12.99 }
+                - column: { name: description, value: Description for Book 7 }
+                - column: { name: cover_image, value: book7_cover.jpg }
