@@ -25,6 +25,11 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
             spec = spec.and(bookSpecificationProviderManager.getSpecificationProvider("title")
                     .getSpecification(searchParameters.titles()));
         }
+
+        if (searchParameters.categories() != null && searchParameters.categories().length > 0) {
+            spec = spec.and(bookSpecificationProviderManager.getSpecificationProvider("categories")
+                    .getSpecification(searchParameters.categories()));
+        }
         return spec;
     }
 }

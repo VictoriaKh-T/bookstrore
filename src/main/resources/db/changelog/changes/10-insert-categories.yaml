@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-categories
+      author: ViktoriiaKh
+      changes:
+        - insert:
+           tableName: categories
+           columns:
+            - column: { name: name, value: "Fiction" }
+            - column: { name: description, value: "Fiction books" }
+
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Mystery" }
+              - column: { name: description, value: "Mystery and detective novels" }
+
+        - insert:
+                tableName: categories
+                columns:
+                  - column: { name: name, value: "Science Fiction" }
+                  - column: { name: description, value: "Science fiction and fantasy books" }
+
+        - insert:
+                tableName: categories
+                columns:
+                  - column: { name: name, value: "Romance" }
+                  - column: { name: description, value: "Romance novels" }
+
+        - insert:
+                tableName: categories
+                columns:
+                  - column: { name: name, value: "Self-help" }
+                  - column: { name: description, value: "Self-help and personal development books" }
