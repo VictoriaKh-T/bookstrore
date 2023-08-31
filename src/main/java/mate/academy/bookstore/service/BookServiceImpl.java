@@ -78,4 +78,9 @@ public class BookServiceImpl implements BookService {
                 .map(bookMapper::mapToDto)
                 .toList();
     }
+
+    @Override
+    public List<Book> findBooksByCategoryId(Long id) {
+        return bookRepository.findBooksByCategoryId(id);
+    }
 }

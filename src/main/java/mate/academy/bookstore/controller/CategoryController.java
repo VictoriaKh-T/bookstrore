@@ -4,10 +4,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.mapper.BookMapper;
-import mate.academy.bookstore.model.dto.book.BookDto;
+import mate.academy.bookstore.model.dto.book.BookDtoWithoutCategoryIds;
 import mate.academy.bookstore.model.dto.category.CategoryDto;
 import mate.academy.bookstore.model.dto.category.CategoryRequestDto;
-import mate.academy.bookstore.repository.book.BookRepository;
+import mate.academy.bookstore.service.BookService;
 import mate.academy.bookstore.service.CategoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -28,11 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final BookRepository bookRepository;
+    private final BookService bookService;
     private final BookMapper bookMapper;
 
-    /*  remains to be implemented
-     public List getBooksByCategoryId(Long id) (endpoint: "/{id}/books") */
     @GetMapping
     @Tag(name = "Get all categories",
             description = "This endpoint returns a list of categories.")
@@ -75,10 +73,11 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}/books")
-    public List<BookDto> getBooksByCategoryId(@PathVariable Long id) {
-
-        return bookRepository.findAllByCategoryId(id).stream()
-                .map(bookMapper::mapToDto)
+    @Tag(name = "get books by categoryId",
+            description = "This endpoint return list of books by id category")
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(@PathVariable Long id) {
+        return bookService.findBooksByCategoryId(id).stream()
+                .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }
 }

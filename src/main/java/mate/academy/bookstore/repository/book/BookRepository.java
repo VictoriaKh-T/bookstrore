@@ -10,5 +10,5 @@ import org.springframework.data.repository.query.Param;
 public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificationExecutor<Book> {
 
     @Query("FROM Book b INNER JOIN FETCH b.categories c WHERE c.id = :category_id")
-    List<Book> findAllByCategoryId(@Param("category_id") Long categoryId);
+    List<Book> findBooksByCategoryId(@Param("category_id") Long categoryId);
 }
