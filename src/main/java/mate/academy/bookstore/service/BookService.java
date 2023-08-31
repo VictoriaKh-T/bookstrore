@@ -1,6 +1,7 @@
 package mate.academy.bookstore.service;
 
 import java.util.List;
+import mate.academy.bookstore.model.Book;
 import mate.academy.bookstore.model.dto.book.BookDto;
 import mate.academy.bookstore.model.dto.book.BookSearchParametersDto;
 import mate.academy.bookstore.model.dto.book.CreateBookRequestDto;
@@ -19,4 +20,6 @@ public interface BookService {
     BookDto updateById(Long id, CreateBookRequestDto bookRequestDto);
 
     List<BookDto> search(BookSearchParametersDto searchParameters, Pageable pageable);
+
+    List<Book> findBooksByCategoryId(Long id);
 }

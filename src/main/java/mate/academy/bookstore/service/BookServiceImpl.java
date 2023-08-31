@@ -1,15 +1,20 @@
 package mate.academy.bookstore.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.BookMapper;
 import mate.academy.bookstore.model.Book;
+import mate.academy.bookstore.model.Category;
 import mate.academy.bookstore.model.dto.book.BookDto;
 import mate.academy.bookstore.model.dto.book.BookSearchParametersDto;
 import mate.academy.bookstore.model.dto.book.CreateBookRequestDto;
 import mate.academy.bookstore.repository.book.BookRepository;
 import mate.academy.bookstore.repository.book.BookSpecificationBuilder;
+import mate.academy.bookstore.repository.category.CategoryRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookSpecificationBuilder bookSpecificationBuilder;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto product) {
@@ -56,6 +62,11 @@ public class BookServiceImpl implements BookService {
         book.setIsbn(bookRequestDto.getIsbn());
         book.setCoverImage(bookRequestDto.getCoverImage());
         book.setDescription(bookRequestDto.getDescription());
+        Set<Category> collect = bookRequestDto.getCategoryIds().stream()
+                .map(categoryRepository::findById)
+                .map(Optional::orElseThrow)
+                .collect(Collectors.toSet());
+        book.setCategories(collect);
         return bookMapper.mapToDto(bookRepository.save(book));
     }
 
@@ -66,5 +77,10 @@ public class BookServiceImpl implements BookService {
                 .stream()
                 .map(bookMapper::mapToDto)
                 .toList();
+    }
+
+    @Override
+    public List<Book> findBooksByCategoryId(Long id) {
+        return bookRepository.findBooksByCategoryId(id);
     }
 }
