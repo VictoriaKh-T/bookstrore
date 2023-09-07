@@ -24,6 +24,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: shopping_cart_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
                   name: is_delete
                   type: boolean
                   constraints:

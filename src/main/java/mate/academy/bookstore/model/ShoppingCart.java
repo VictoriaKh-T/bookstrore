@@ -4,7 +4,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -23,10 +22,7 @@ public class ShoppingCart {
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(name = "shopping_carts_cart_items",
-            joinColumns = @JoinColumn(name = "shopping_cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "cart_item_id"))
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.REMOVE)
     private Set<CartItem> cartItems;
 
     @Override

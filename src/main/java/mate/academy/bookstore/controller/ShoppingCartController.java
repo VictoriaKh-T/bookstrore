@@ -7,6 +7,7 @@ import mate.academy.bookstore.model.dto.shopingcart.CartItemRequestDto;
 import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartResponseDto;
 import mate.academy.bookstore.service.ShoppingCartService;
 import mate.academy.bookstore.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "shopping cart management", description = "Endpoints for managing shopping cart")
@@ -37,6 +39,7 @@ public class ShoppingCartController {
     @PostMapping("/add_item")
     @Tag(name = "add new book",
             description = "This endpoint add new item to shopping cart")
+    @ResponseStatus(HttpStatus.CREATED)
     public ShoppingCartResponseDto addItem(@RequestBody CartItemRequestDto requestDto,
                                            Authentication auth) {
         User user = getUserByAuth(auth);
