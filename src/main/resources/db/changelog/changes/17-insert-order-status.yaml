@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-order-status
+      author: ViktoriiaKh
+      changes:
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "NEW" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "IN_PROGRESS" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "COMPLETED" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "CANCELLED" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "RETURNED" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "DELIVERED" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "AWAITING_DELIVERY" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "FAILED" }
+
+        - insert:
+            tableName: statuses
+            columns:
+              - column: { name: status, value: "ARCHIVED" }

@@ -22,7 +22,7 @@ public class ShoppingCart {
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
     private Set<CartItem> cartItems;
 
     @Override
