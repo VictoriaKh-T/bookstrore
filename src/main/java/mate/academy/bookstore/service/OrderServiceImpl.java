@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.OrderItemMapper;
 import mate.academy.bookstore.mapper.OrderMapper;
+import mate.academy.bookstore.model.CartItem;
 import mate.academy.bookstore.model.Order;
 import mate.academy.bookstore.model.OrderItem;
 import mate.academy.bookstore.model.ShoppingCart;
@@ -47,14 +48,7 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(EntityNotFoundException.supplier("shopping cart is not found"));
 
         Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
-                .map(cartItem -> {
-                    OrderItem orderItem = new OrderItem();
-                    orderItem.setBook(cartItem.getBook());
-                    orderItem.setPrice(cartItem.getBook().getPrice());
-                    orderItem.setQuantity(cartItem.getQuantity());
-                    orderItem.setOrder(order);
-                    return orderItem;
-                })
+                .map(cartItem -> mappingFromCartItemToOrderItem(cartItem, order))
                 .collect(Collectors.toSet());
 
         BigDecimal total = orderItems.stream()
@@ -90,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderItemDto> findItemsByOrderId(Long orderId) {
-        return orderItemRepository.findItemsByOrderId(orderId).stream()
+        return orderItemRepository.findAllByOrderId(orderId).stream()
                 .map(orderItemMapper::mapToDto)
                 .toList();
     }
@@ -98,8 +92,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderItemDto getByOrderIdAndItemId(Long orderId, Long itemId) {
         return orderItemMapper.mapToDto(
-                orderItemRepository.findByOrderIdAndItemId(orderId, itemId).orElseThrow(
+                orderItemRepository.findByIdAndOrderId(orderId, itemId).orElseThrow(
                         EntityNotFoundException.supplier("item is not found")
                 ));
+    }
+
+    private OrderItem mappingFromCartItemToOrderItem(CartItem cartItem, Order order) {
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setBook(cartItem.getBook());
+        orderItem.setPrice(cartItem.getBook().getPrice());
+        orderItem.setQuantity(cartItem.getQuantity());
+        orderItem.setOrder(order);
+        return orderItem;
+
     }
 }
