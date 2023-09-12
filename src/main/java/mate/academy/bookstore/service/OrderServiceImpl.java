@@ -17,7 +17,6 @@ import mate.academy.bookstore.model.User;
 import mate.academy.bookstore.model.dto.order.OrderDto;
 import mate.academy.bookstore.model.dto.order.OrderItemDto;
 import mate.academy.bookstore.model.dto.order.OrderRequestDto;
-import mate.academy.bookstore.model.dto.order.StatusRequestDto;
 import mate.academy.bookstore.repository.order.OrderItemRepository;
 import mate.academy.bookstore.repository.order.OrderRepository;
 import mate.academy.bookstore.repository.shoppingcart.ShoppingCartRepository;
@@ -75,10 +74,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto updateStatus(Long orderId, StatusRequestDto requestDto) {
+    public OrderDto updateStatus(Long orderId, Order.Status status) {
         Order order = orderRepository.findById(orderId).orElseThrow(
                 EntityNotFoundException.supplier("order not found"));
-        order.setStatus(Order.Status.valueOf(requestDto.getStatus()));
+        order.setStatus(status);
         return orderMapper.mapToDto(orderRepository.save(order));
     }
 
