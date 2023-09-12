@@ -42,7 +42,7 @@ public class BookController {
         return bookService.findById(id);
     }
 
-    @PostMapping("/ctreate_book")
+    @PostMapping("/")
     @Tag(name = "Create new book",
             description = "This endpoint create a book")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

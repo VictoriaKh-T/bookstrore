@@ -46,7 +46,7 @@ public class CategoryController {
 
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @Tag(name = "Create new category",
             description = "This endpoint create a category")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
