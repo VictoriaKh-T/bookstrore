@@ -74,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> findAllByUserId(User user) {
+    public List<OrderDto> findAllByUser(User user) {
         return orderRepository.findOrdersByUser(user).stream()
                 .map(orderMapper::mapToDto)
                 .toList();

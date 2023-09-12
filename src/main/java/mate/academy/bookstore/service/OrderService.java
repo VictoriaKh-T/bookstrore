@@ -10,7 +10,7 @@ import mate.academy.bookstore.model.dto.order.StatusRequestDto;
 public interface OrderService {
     OrderDto createOrder(OrderRequestDto requestDto,Long userId);
 
-    List<OrderDto> findAllByUserId(User user);
+    List<OrderDto> findAllByUser(User user);
 
     OrderDto updateStatus(Long orderId, StatusRequestDto requestDto);
 

@@ -12,7 +12,6 @@ import mate.academy.bookstore.service.OrderService;
 import mate.academy.bookstore.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,9 +40,9 @@ public class OrderController {
     @GetMapping
     @Tag(name = "get history of orders by user",
             description = "This endpoint gets orders")
-    public List<OrderDto> findAllByUserId(Authentication auth) {
+    public List<OrderDto> getOrderHistory(Authentication auth) {
         User user = getUserByAuth(auth);
-        return orderService.findAllByUserId(user);
+        return orderService.findAllByUser(user);
     }
 
     @GetMapping("/{id}/items")
@@ -56,8 +55,8 @@ public class OrderController {
     @GetMapping("/{id}/items/{itemId}")
     @Tag(name = "get item",
             description = "This endpoint gets item by id and orderId")
-    public OrderItemDto getByItemId(@PathVariable Long id,
-                                @PathVariable Long itemId) {
+    public OrderItemDto getOrderItemByItemId(@PathVariable Long id,
+                                             @PathVariable Long itemId) {
         return orderService.getByOrderIdAndItemId(id, itemId);
     }
 
@@ -65,14 +64,12 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Tag(name = "udate oder",
             description = "This endpoint update oder. Just for Admin role")
-    public OrderDto updateById(@PathVariable Long id,
-                               @RequestBody StatusRequestDto requestDto) {
+    public OrderDto updateOrderStatus(@PathVariable Long id,
+                                      @RequestBody StatusRequestDto requestDto) {
         return orderService.updateStatus(id, requestDto);
     }
 
     public User getUserByAuth(Authentication auth) {
-        UserDetails details = (UserDetails) auth.getPrincipal();
-        String email = details.getUsername();
-        return userService.findByEmail(email);
+        return (User) auth.getPrincipal();
     }
 }
