@@ -34,7 +34,7 @@ public class Order {
     private Status status;
 
     @Column(nullable = false)
-    private BigDecimal total = BigDecimal.ZERO;
+    private BigDecimal total;
 
     @Column(nullable = false)
     private LocalDateTime orderDate;
@@ -45,7 +45,6 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
-    @Table(name = "statuses")
     public enum Status {
         NEW("New"),
         IN_PROGRESS("In Progress"),

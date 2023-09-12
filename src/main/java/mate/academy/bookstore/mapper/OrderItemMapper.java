@@ -3,7 +3,6 @@ package mate.academy.bookstore.mapper;
 import mate.academy.bookstore.config.MapperConfig;
 import mate.academy.bookstore.model.OrderItem;
 import mate.academy.bookstore.model.dto.order.OrderItemDto;
-import mate.academy.bookstore.model.dto.order.OrderItemRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,6 +11,4 @@ public interface OrderItemMapper {
 
     @Mapping(target = "bookId", source = "book.id")
     OrderItemDto mapToDto(OrderItem orderItem);
-
-    OrderItem mapToEntity(OrderItemRequestDto requestDto);
 }
