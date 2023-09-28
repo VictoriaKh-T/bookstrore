@@ -12,7 +12,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -21,6 +24,9 @@ import org.hibernate.annotations.Where;
 @Table(name = "books")
 @SQLDelete(sql = "UPDATE books SET is_delete = true WHERE id = ?")
 @Where(clause = "is_delete = false")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +53,4 @@ public class Book {
 
     @Column(nullable = false)
     private boolean isDelete = false;
-
 }
