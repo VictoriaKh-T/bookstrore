@@ -50,6 +50,7 @@ public class CategoryController {
     @Tag(name = "Create new category",
             description = "This endpoint create a category")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto createCategory(@RequestBody CategoryRequestDto requestDto) {
         return categoryService.save(requestDto);
     }

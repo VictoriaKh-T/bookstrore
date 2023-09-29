@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.Set;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,11 +55,12 @@ class BookServiceTest {
                 .title("Book test")
                 .isbn("978-0547928227")
                 .build();
-        bookDto = new BookDto();
-        bookDto.setId(book.getId());
-        bookDto.setIsbn(book.getIsbn());
-        bookDto.setAuthor(book.getAuthor());
-        bookDto.setTitle(book.getTitle());
+        bookDto = BookDto.builder()
+                .id(book.getId())
+                .isbn(book.getIsbn())
+                .author(book.getAuthor())
+                .title(book.getTitle())
+                .build();
     }
 
     @DisplayName("JUnit for method findById")
@@ -130,6 +132,9 @@ class BookServiceTest {
         List<BookDto> result = bookService.search(searchParameters, pageable);
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals("978-0547928227", result.get(0).getIsbn());
+
+        verify(bookRepository, times(1)).findAll(bookSpecification, pageable);
+        verify(bookMapper, times(1)).mapToDto(book);
     }
 
     @DisplayName("JUnit test for searching books with incorrect params return empty")
