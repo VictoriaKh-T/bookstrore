@@ -56,7 +56,7 @@ class BookControllerTest {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
                     connection,
-                    new ClassPathResource("database/sql/add-three-books.sql")
+                    new ClassPathResource("database/sql-book/add-three-books.sql")
             );
         }
     }
@@ -72,7 +72,7 @@ class BookControllerTest {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
                     connection,
-                    new ClassPathResource("database/sql/delete-all-books.sql")
+                    new ClassPathResource("database/sql-book/delete-all-books.sql")
             );
         }
     }
@@ -124,7 +124,7 @@ class BookControllerTest {
 
     @DisplayName("create new book")
     @Sql(
-            scripts = "classpath:database/sql/delete-book-by-isn.sql",
+            scripts = "classpath:database/sql-book/delete-book-by-isn.sql",
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD
     )
     @Test

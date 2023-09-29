@@ -56,7 +56,7 @@ class CategoryControllerTest {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
                     connection,
-                    new ClassPathResource("database/sql/add-categories.sql")
+                    new ClassPathResource("database/sql-book/add-categories.sql")
             );
         }
     }
@@ -72,7 +72,7 @@ class CategoryControllerTest {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
                     connection,
-                    new ClassPathResource("database/sql/delete-all-categories.sql")
+                    new ClassPathResource("database/sql-book/delete-all-categories.sql")
             );
         }
     }
@@ -146,7 +146,7 @@ class CategoryControllerTest {
 
     @DisplayName("create new category")
     @Sql(
-            scripts = "classpath:database/sql/delete-category-by-id.sql",
+            scripts = "classpath:database/sql-book/delete-category-by-id.sql",
             executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD
     )
     @Test

@@ -18,13 +18,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql(scripts = {
-        "classpath:database/sql/repository/insert-book.sql",
-        "classpath:database/sql/repository/insert-category.sql",
-        "classpath:database/sql/repository/add-book-to-category.sql"
+        "classpath:database/sql-book/repository/insert-book.sql",
+        "classpath:database/sql-book/repository/insert-category.sql",
+        "classpath:database/sql-book/repository/add-book-to-category.sql"
 }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = {
-        "classpath:database/sql/repository/delete-book.sql",
-        "classpath:database/sql/repository/delete-category.sql",
+        "classpath:database/sql-book/repository/delete-book.sql",
+        "classpath:database/sql-book/repository/delete-category.sql",
 }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class BookRepositoryTest {
 
