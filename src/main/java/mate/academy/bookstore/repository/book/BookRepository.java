@@ -1,6 +1,7 @@
 package mate.academy.bookstore.repository.book;
 
 import java.util.List;
+import java.util.Optional;
 import mate.academy.bookstore.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,4 +12,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
     @Query("FROM Book b INNER JOIN FETCH b.categories c WHERE c.id = :category_id")
     List<Book> findBooksByCategoryId(@Param("category_id") Long categoryId);
+
+    Optional<Book> findBookByIsbn(String ibsn);
 }
