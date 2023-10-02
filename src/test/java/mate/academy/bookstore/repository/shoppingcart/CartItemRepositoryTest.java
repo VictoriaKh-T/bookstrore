@@ -32,7 +32,7 @@ class CartItemRepositoryTest {
     @Test
     void findByShoppingCartIdAndBookId_isPresent() {
         Long bookId = 1L;
-        Long shoppingCartId = 1L;
+        Long shoppingCartId = 3L;
         Optional<CartItem> result = cartItemRepository.findByShoppingCartIdAndBookId(shoppingCartId,
                 bookId);
         Assertions.assertTrue(result.isPresent());
