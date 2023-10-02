@@ -32,7 +32,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .orElseThrow(EntityNotFoundException.supplier("User not found"));
         Book book = bookRepository.findById(request.getBookId())
                 .orElseThrow(EntityNotFoundException.supplier("Book not found"));
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user)
                 .orElseGet(() -> {
                     ShoppingCart newShoppingCart = new ShoppingCart();
                     newShoppingCart.setUser(user);
@@ -57,11 +57,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartResponseDto updateCartItem(CartItemRequestDto requestDto,
                                                   Long cartItemId,
                                                   Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(EntityNotFoundException.supplier("User not found"));
         CartItem item = cartItemRepository.findById(cartItemId).orElseThrow(
                 EntityNotFoundException.supplier("item is not found"));
         ShoppingCart shoppingCart
                 = shoppingCartRepository.save(shoppingCartRepository
-                .findByUserId(userId).orElseThrow(
+                .findByUser(user).orElseThrow(
                         EntityNotFoundException.supplier("shopping cart is not found")));
         item.setQuantity(requestDto.getQuantity());
         item.setShoppingCart(shoppingCart);
@@ -71,10 +73,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartResponseDto deleteCartItem(Long cartItemId, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(EntityNotFoundException.supplier("User not found"));
         cartItemRepository.deleteById(cartItemId);
         ShoppingCart shoppingCart
                 = shoppingCartRepository.save(shoppingCartRepository
-                .findByUserId(userId).orElseThrow(
+                .findByUser(user).orElseThrow(
                         EntityNotFoundException.supplier("shopping cart is not found")));
         return shoppingCartMapper.mapToDto(shoppingCart);
     }
@@ -90,8 +94,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartResponseDto findByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(EntityNotFoundException.supplier("User not found"));
         ShoppingCart shoppingCartByUser
-                = shoppingCartRepository.findByUserId(userId).orElseThrow(
+                = shoppingCartRepository.findByUser(user).orElseThrow(
                         EntityNotFoundException.supplier("shopping cart is not found"));
         return shoppingCartMapper.mapToDto(shoppingCartByUser);
     }

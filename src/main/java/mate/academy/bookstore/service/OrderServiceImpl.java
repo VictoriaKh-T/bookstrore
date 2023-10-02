@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(Order.Status.NEW);
         order.setOrderDate(LocalDateTime.now());
 
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user)
                 .orElseThrow(EntityNotFoundException.supplier("shopping cart is not found"));
 
         Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
