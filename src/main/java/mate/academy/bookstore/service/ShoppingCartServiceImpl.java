@@ -58,17 +58,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                                                   Long cartItemId,
                                                   Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(EntityNotFoundException.supplier("User not found"));
-        CartItem item = cartItemRepository.findById(cartItemId).orElseThrow(
-                EntityNotFoundException.supplier("item is not found"));
-        ShoppingCart shoppingCart
-                = shoppingCartRepository.save(shoppingCartRepository
-                .findByUser(user).orElseThrow(
-                        EntityNotFoundException.supplier("shopping cart is not found")));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        CartItem item = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new EntityNotFoundException("Item is not found"));
+        if (!item.getShoppingCart().getUser().getId().equals(userId)) {
+            throw new EntityNotFoundException("Item does not belong to the user");
+        }
         item.setQuantity(requestDto.getQuantity());
-        item.setShoppingCart(shoppingCart);
         cartItemRepository.save(item);
-        return shoppingCartMapper.mapToDto(shoppingCart);
+        return shoppingCartMapper.mapToDto(item.getShoppingCart());
     }
 
     @Override
