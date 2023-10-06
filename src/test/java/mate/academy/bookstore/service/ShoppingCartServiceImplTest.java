@@ -1,6 +1,5 @@
 package mate.academy.bookstore.service;
 
-import mate.academy.bookstore.exception.BookAlreadyExistsException;
 import mate.academy.bookstore.exception.EntityNotFoundException;
 import mate.academy.bookstore.mapper.ShoppingCartMapper;
 import mate.academy.bookstore.model.Book;
@@ -9,7 +8,6 @@ import mate.academy.bookstore.model.ShoppingCart;
 import mate.academy.bookstore.model.User;
 import mate.academy.bookstore.model.dto.shopingcart.CartItemRequestDto;
 import mate.academy.bookstore.model.dto.shopingcart.CartItemResponseDto;
-import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartRequestDto;
 import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartResponseDto;
 import mate.academy.bookstore.repository.book.BookRepository;
 import mate.academy.bookstore.repository.shoppingcart.CartItemRepository;
@@ -27,7 +25,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Set;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -123,20 +120,27 @@ class ShoppingCartServiceImplTest {
 
     @DisplayName("JUnit for method findById when return exception")
     @Test
-    void findByUserId_ReturnEntityError() {
+    void findByUser_ReturnEntityError() {
         Long userId = 100L;
-        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+        user = new User();
+        user.setId(userId);
+        user.setEmail("u@example.com");
+        user.setFirstName("John");
+        user.setLastName("Doe");
+        user.setPassword("1234");
+        user.setDelete(false);
+
         Exception exception = Assertions.assertThrows(
                 EntityNotFoundException.class,
-                () -> shoppingCartService.findByUserId(userId)
+                () -> shoppingCartService.findByUser(user)
         );
-        String expected = "User not found";
+        String expected = "shopping cart is not found";
         String actual = exception.getMessage();
         Assertions.assertEquals(expected, actual);
     }
     @Test
-    void updateCartItem() {
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+    @DisplayName("JUnit for method updateCartItem when return Ok")
+    void updateCartItem_ReturnOk() {
         when(cartItemRepository.findById(cartItem.getId())).thenReturn(Optional.of(cartItem));
 
         CartItemRequestDto itemRequestDto = new CartItemRequestDto();
@@ -156,12 +160,11 @@ class ShoppingCartServiceImplTest {
         when(shoppingCartMapper.mapToDto(shoppingCart)).thenReturn(shoppingCartDto);
 
         ShoppingCartResponseDto result = shoppingCartService.updateCartItem(itemRequestDto,
-                cartItem.getId(), user.getId());
+                cartItem.getId());
 
         Assertions.assertNotNull(result);
         Assertions.assertTrue(result.getCartItems().contains(cartItemDto));
 
-        Mockito.verify(userRepository, times(1)).findById(user.getId());
         Mockito.verify(cartItemRepository, times(1))
                 .findById(cartItem.getId());
     }

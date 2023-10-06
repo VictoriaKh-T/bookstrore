@@ -15,11 +15,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql(scripts = {
+        "classpath:database/sql-shopping-cart/repository/add-users-and-shopping-cart.sql",
         "classpath:database/sql-shopping-cart/repository/add-cartitem-to-shoppingcart.sql"
 
 }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = {
-        "classpath:database/sql-shopping-cart/repository/delete-shoppingcart.sql"
+        "classpath:database/sql-shopping-cart/repository/delete-shoppingcart.sql",
+         "classpath:database/sql-shopping-cart/repository/delete-user.sql"
 }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class CartItemRepositoryTest {
 
