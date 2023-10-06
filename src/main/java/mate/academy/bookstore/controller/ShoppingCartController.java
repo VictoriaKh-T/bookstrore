@@ -6,7 +6,9 @@ import mate.academy.bookstore.model.User;
 import mate.academy.bookstore.model.dto.shopingcart.CartItemRequestDto;
 import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartResponseDto;
 import mate.academy.bookstore.service.ShoppingCartService;
+import mate.academy.bookstore.service.UserService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+    private final UserService userService;
 
     @GetMapping
     @Tag(name = "Get shopping cart",
@@ -68,6 +71,7 @@ public class ShoppingCartController {
     }
 
     public User getUserByAuth(Authentication auth) {
-        return (User) auth.getPrincipal();
+        UserDetails principal = (User) auth.getPrincipal();
+        return userService.findByEmail(principal.getUsername());
     }
 }

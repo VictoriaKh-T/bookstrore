@@ -1,1 +1,4 @@
-DELETE FROM users WHERE id = 1;
+DELETE FROM users;
+
+DELETE FROM shopping_carts;
+
