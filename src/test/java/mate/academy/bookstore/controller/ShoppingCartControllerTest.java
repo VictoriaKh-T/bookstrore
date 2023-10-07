@@ -130,11 +130,6 @@ class ShoppingCartControllerTest {
     @Sql(scripts = {"classpath:database/sql-shopping-cart/controller/insert-new-book.sql"},
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
     )
-    @Sql(scripts = {"classpath:database/sql-shopping-cart/controller/"
-                    + "delete-cart-item-by-book_id.sql",
-            "classpath:database/sql-shopping-cart/controller/delete-book.sql"},
-            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD
-    )
     void addItem_To_ShoppingCart_ReturnOk() throws Exception {
 
        Book book = Book.builder()
