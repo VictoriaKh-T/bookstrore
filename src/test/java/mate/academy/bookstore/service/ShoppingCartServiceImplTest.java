@@ -99,7 +99,6 @@ class ShoppingCartServiceImplTest {
     @DisplayName("add cart item success")
     @Test
     void addCartItem_ReturnOk() {
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
         when(shoppingCartRepository.findByUser(user)).thenReturn(Optional.of(shoppingCart));
         when(cartItemRepository
@@ -109,12 +108,11 @@ class ShoppingCartServiceImplTest {
         when(shoppingCartMapper.mapToDto(shoppingCart)).thenReturn(shoppingCartDto);
 
         ShoppingCartResponseDto result
-                = shoppingCartService.addCartItem(cartItemRequestDto, user.getId());
+                = shoppingCartService.addCartItem(cartItemRequestDto, user);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result, shoppingCartDto);
         Mockito.verify(bookRepository, times(1)).findById(book.getId());
-        Mockito.verify(userRepository, times(1)).findById(user.getId());
         Mockito.verify(shoppingCartRepository, times(1)).findByUser(user);
     }
 

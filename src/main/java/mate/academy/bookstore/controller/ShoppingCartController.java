@@ -7,6 +7,7 @@ import mate.academy.bookstore.model.dto.shopingcart.CartItemRequestDto;
 import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartResponseDto;
 import mate.academy.bookstore.service.ShoppingCartService;
 import mate.academy.bookstore.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "shopping cart management", description = "Endpoints for managing shopping cart")
@@ -36,10 +38,11 @@ public class ShoppingCartController {
     @PostMapping
     @Tag(name = "add new shopping cart",
             description = "This endpoint add new item to shopping cart")
+    @ResponseStatus(HttpStatus.CREATED)
     public ShoppingCartResponseDto addItem(@RequestBody CartItemRequestDto requestDto,
                                            Authentication auth) {
         User user = (User) auth.getPrincipal();
-        return shoppingCartService.addCartItem(requestDto, user.getId());
+        return shoppingCartService.addCartItem(requestDto, user);
     }
 
     @PutMapping("cart-items/{cartItemId}")
@@ -59,7 +62,7 @@ public class ShoppingCartController {
     public void deleteItemFromCart(@PathVariable Long cartItemId,
                                    Authentication auth) {
         User user = (User) auth.getPrincipal();
-        shoppingCartService.deleteCartItem(cartItemId, user.getId());
+        shoppingCartService.deleteCartItem(cartItemId, user);
     }
 
     @DeleteMapping("/{id}")
