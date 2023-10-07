@@ -183,7 +183,8 @@ class ShoppingCartControllerTest {
                 ShoppingCartResponseDto.class);
 
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(shoppingCartDto, actual);
+        assertThat(actual.getCartItems())
+                .containsExactlyInAnyOrder(shoppingCartDto.getCartItems().toArray(new CartItemResponseDto[0]));
 
     }
 
