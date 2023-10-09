@@ -12,7 +12,6 @@ import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartResponseDto;
 import mate.academy.bookstore.repository.book.BookRepository;
 import mate.academy.bookstore.repository.shoppingcart.CartItemRepository;
 import mate.academy.bookstore.repository.shoppingcart.ShoppingCartRepository;
-import mate.academy.bookstore.repository.user.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,11 +32,8 @@ class ShoppingCartServiceImplTest {
 
     @Mock
     private ShoppingCartRepository shoppingCartRepository;
-
     @Mock
     private CartItemRepository cartItemRepository;
-    @Mock
-    private UserRepository userRepository;
     @Mock
     private BookRepository bookRepository;
     @Mock

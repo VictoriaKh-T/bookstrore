@@ -93,7 +93,7 @@ class ShoppingCartControllerTest {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
                     connection,
-                    new ClassPathResource("database/sql-shopping-cart/controller/delete-user.sql")
+                    new ClassPathResource("database/sql-shopping-cart/controller/delete-data.sql")
             );
         }
     }
@@ -133,30 +133,30 @@ class ShoppingCartControllerTest {
     void addItem_To_ShoppingCart_ReturnOk() throws Exception {
 
        Book book = Book.builder()
-                .id(5L)
+                .id(4L)
                 .author("Author test")
                 .price(BigDecimal.valueOf(200))
                 .title("Book test")
                 .isbn("978-1400067885")
                 .build();
-       when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
 
         User user = new User();
         user.setId(1L);
         user.setEmail("user3@example.com");
 
-        ShoppingCartResponseDto shoppingCartDto = getShoppingCartResponseDto(user);
         Authentication authentication = getAuthorisation(user);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         CartItemRequestDto requestDto = new CartItemRequestDto();
-        requestDto.setBookId(5L);
+        requestDto.setBookId(book.getId());
         requestDto.setQuantity(15);
 
         CartItemResponseDto cartItemDto4 = new CartItemResponseDto();
         cartItemDto4.setBookId(book.getId());
         cartItemDto4.setQuantity(15);
         cartItemDto4.setId(4L);
+
+        ShoppingCartResponseDto shoppingCartDto = getShoppingCartResponseDto(user);
 
         Set<CartItemResponseDto> cartItems = new HashSet<>(shoppingCartDto.getCartItems());
         cartItems.add(cartItemDto4);
@@ -165,6 +165,7 @@ class ShoppingCartControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestJson = objectMapper.writeValueAsString(requestDto);
 
+        when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
 
         MvcResult result = mockMvc.perform(
                 post("/cart")
@@ -247,7 +248,7 @@ class ShoppingCartControllerTest {
         cartItemDto2.setId(2L);
 
         CartItemResponseDto cartItemDto3 = new CartItemResponseDto();
-        cartItemDto3.setBookId(4L);
+        cartItemDto3.setBookId(3L);
         cartItemDto3.setQuantity(10);
         cartItemDto3.setId(3L);
 

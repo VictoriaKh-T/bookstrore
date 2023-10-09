@@ -10,9 +10,11 @@ import mate.academy.bookstore.model.dto.user.register.UserRegistrationRequest;
 import mate.academy.bookstore.model.dto.user.register.UserResponseDto;
 import mate.academy.bookstore.security.AuthenticationService;
 import mate.academy.bookstore.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Auth management", description = "Endpoints for managing users")
@@ -29,6 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequest request)
             throws RegistrationException {
         return userService.register(request);

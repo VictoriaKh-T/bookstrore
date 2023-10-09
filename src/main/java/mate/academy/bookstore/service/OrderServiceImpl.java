@@ -97,13 +97,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderItem mappingFromCartItemToOrderItem(CartItem cartItem, Order order) {
-
         OrderItem orderItem = new OrderItem();
         orderItem.setBook(cartItem.getBook());
         orderItem.setPrice(cartItem.getBook().getPrice());
         orderItem.setQuantity(cartItem.getQuantity());
         orderItem.setOrder(order);
         return orderItem;
-
     }
 }
