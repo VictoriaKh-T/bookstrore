@@ -127,9 +127,6 @@ class ShoppingCartControllerTest {
 
     @Test
     @DisplayName("test method addItem ")
-    @Sql(scripts = {"classpath:database/sql-shopping-cart/controller/insert-new-book.sql"},
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD
-    )
     void addItem_To_ShoppingCart_ReturnOk() throws Exception {
 
        Book book = Book.builder()
