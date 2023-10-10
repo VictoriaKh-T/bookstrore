@@ -10,7 +10,6 @@ import mate.academy.bookstore.model.ShoppingCart;
 import mate.academy.bookstore.model.User;
 import mate.academy.bookstore.model.dto.user.register.UserRegistrationRequest;
 import mate.academy.bookstore.model.dto.user.register.UserResponseDto;
-import mate.academy.bookstore.repository.shoppingcart.ShoppingCartRepository;
 import mate.academy.bookstore.repository.user.RoleRepository;
 import mate.academy.bookstore.repository.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +22,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
-    private final ShoppingCartRepository shoppingCartRepository;
 
     @Override
     public UserResponseDto register(UserRegistrationRequest request) {
@@ -38,13 +36,13 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Set.of(roleRepository.getRoleByRoleName(Role.RoleName.ROLE_USER)));
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
-        shoppingCartRepository.save(shoppingCart);
-        return userMapper.mapToDto(userRepository.save(user));
+        User save = userRepository.save(user);
+        return userMapper.mapToDto(save);
     }
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findUserByEmail(email).orElseThrow(()
-                -> new EntityNotFoundException("Can`t find user by email" + email));
+                -> new EntityNotFoundException("Can`t find user by email " + email));
     }
 }

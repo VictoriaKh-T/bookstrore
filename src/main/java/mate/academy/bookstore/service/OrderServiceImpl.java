@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(Order.Status.NEW);
         order.setOrderDate(LocalDateTime.now());
 
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId)
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user)
                 .orElseThrow(EntityNotFoundException.supplier("shopping cart is not found"));
 
         Set<OrderItem> orderItems = shoppingCart.getCartItems().stream()
@@ -97,13 +97,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderItem mappingFromCartItemToOrderItem(CartItem cartItem, Order order) {
-
         OrderItem orderItem = new OrderItem();
         orderItem.setBook(cartItem.getBook());
         orderItem.setPrice(cartItem.getBook().getPrice());
         orderItem.setQuantity(cartItem.getQuantity());
         orderItem.setOrder(order);
         return orderItem;
-
     }
 }

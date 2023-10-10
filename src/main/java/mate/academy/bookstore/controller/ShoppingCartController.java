@@ -6,6 +6,8 @@ import mate.academy.bookstore.model.User;
 import mate.academy.bookstore.model.dto.shopingcart.CartItemRequestDto;
 import mate.academy.bookstore.model.dto.shopingcart.ShoppingCartResponseDto;
 import mate.academy.bookstore.service.ShoppingCartService;
+import mate.academy.bookstore.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "shopping cart management", description = "Endpoints for managing shopping cart")
@@ -22,22 +25,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+    private final UserService userService;
 
     @GetMapping
     @Tag(name = "Get shopping cart",
             description = "This endpoint returns a shopping cart.")
     public ShoppingCartResponseDto getShoppingCart(Authentication auth) {
-        User user = getUserByAuth(auth);
-        return shoppingCartService.findByUserId(user.getId());
+        User user = (User) auth.getPrincipal();
+        return shoppingCartService.findByUser(user);
     }
 
     @PostMapping
     @Tag(name = "add new shopping cart",
             description = "This endpoint add new item to shopping cart")
+    @ResponseStatus(HttpStatus.CREATED)
     public ShoppingCartResponseDto addItem(@RequestBody CartItemRequestDto requestDto,
                                            Authentication auth) {
-        User user = getUserByAuth(auth);
-        return shoppingCartService.addCartItem(requestDto, user.getId());
+        User user = (User) auth.getPrincipal();
+        return shoppingCartService.addCartItem(requestDto, user);
     }
 
     @PutMapping("cart-items/{cartItemId}")
@@ -46,9 +51,9 @@ public class ShoppingCartController {
     public ShoppingCartResponseDto updateItem(@PathVariable Long cartItemId,
                                               @RequestBody CartItemRequestDto requestDto,
                                               Authentication auth) {
-        User user = getUserByAuth(auth);
-        shoppingCartService.updateCartItem(requestDto, cartItemId, user.getId());
-        return shoppingCartService.findByUserId(user.getId());
+        User user = (User) auth.getPrincipal();
+        shoppingCartService.updateCartItem(requestDto, cartItemId);
+        return shoppingCartService.findByUser(user);
     }
 
     @DeleteMapping("cart-items/{cartItemId}")
@@ -56,8 +61,8 @@ public class ShoppingCartController {
             description = "This endpoint delete item from shopping cart")
     public void deleteItemFromCart(@PathVariable Long cartItemId,
                                    Authentication auth) {
-        User user = getUserByAuth(auth);
-        shoppingCartService.deleteCartItem(cartItemId, user.getId());
+        User user = (User) auth.getPrincipal();
+        shoppingCartService.deleteCartItem(cartItemId, user);
     }
 
     @DeleteMapping("/{id}")
@@ -65,9 +70,5 @@ public class ShoppingCartController {
             description = "This endpoint delete all item from shopping cart")
     public ShoppingCartResponseDto deleteAllItemsFromCart(@PathVariable Long shoppingCartId) {
         return shoppingCartService.clear(shoppingCartId);
-    }
-
-    public User getUserByAuth(Authentication auth) {
-        return (User) auth.getPrincipal();
     }
 }

@@ -155,4 +155,12 @@ class BookServiceTest {
         List<BookDto> result = bookService.search(searchParameters, pageable);
         Assertions.assertEquals(0, result.size());
     }
+
+    @Test
+    void testGetBookById_ReturnOk() {
+        when(bookRepository.findById(book.getId())).thenReturn(Optional.of(book));
+        when(bookMapper.mapToDto(book)).thenReturn(bookDto);
+        BookDto result = bookService.findById(book.getId());
+        Assertions.assertEquals(result, bookDto);
+    }
 }
