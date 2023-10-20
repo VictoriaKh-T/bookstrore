@@ -36,42 +36,42 @@ To run this project and execute the tests, you will need:
 
 <table>
   <tr>
-    <td><strong>Project Structure</strong></td>
+    <td style="font-size: 16px;"><strong>Project Structure</strong></td>
   </tr>
   <tr>
     <td>
-      <table>
+      <table style="font-size: 12px;">
         <tr>
           <td><strong>src/main/resources</strong></td>
-            <td>Application resources, including configuration files and Liquibase scripts.</td>
+            <td>Application resources,including configuration files and Liquibase scripts.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/config</strong></td>
-          <td style="white-space: normal;">Application configuration. These files define various settings and properties for the application.</td>
+          <td>Application configuration. These files define various settings and properties for the application.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/controller</strong></td>
-          <td style="white-space: normal;">Controllers handle incoming HTTP requests, perform actions, and return responses.</td>
+          <td>Controllers handle incoming HTTP requests, perform actions, and return responses.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/mapper</strong></td>
-           <td style="white-space: normal;">The "mapper" directory contains mapper interfaces and classes. </td>
+           <td>The "mapper" directory contains mapper interfaces and classes. </td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/model</strong></td>
-          <td style="white-space: normal;">This directory contains all the models used by the project. </td>
+          <td>This directory contains all the models used by the project. </td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/repository</strong></td>
-          <td style="white-space: normal;">Repository classes are responsible for interacting with the database and querying the data storage.</td>
+          <td>Repository classes are responsible for interacting with the database and querying the data storage.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/service</strong></td>
-          <td style="white-space: normal;">The service directory contains the service classes which encapsulate the application's business logic.</td>
+          <td>The service directory contains the service classes which encapsulate the application's business logic.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/security</strong></td>
-          <td style="white-space: normal;">This directory is dedicated to security-related components, including JWT TOKEN.</td>
+          <td>This directory is dedicated to security-related components, including JWT TOKEN.</td>
         </tr>
         <tr>
           <td><strong>src/test</strong></td>
