@@ -43,7 +43,7 @@ To run this project and execute the tests, you will need:
       <table>
         <tr>
           <td><strong>src/main/resources</strong></td>
-            <td>Application resources, including configuration files and Liquibase scripts. Liquibase is used for managing database schema changes.</td>
+            <td>Application resources, including configuration files and Liquibase scripts.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/config</strong></td>
@@ -55,23 +55,23 @@ To run this project and execute the tests, you will need:
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/mapper</strong></td>
-           <td>The "mapper" directory contains mapper interfaces and classes that facilitate the conversion between domain models and DTOs (Data Transfer Objects). These mappers define how data is transformed between different representations.</td>
+           <td>The "mapper" directory contains mapper interfaces and classes. </td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/model</strong></td>
-          <td>This directory contains all the models used by the project. Models represent the core data structures and entities that the application works with.</td>
+          <td>This directory contains all the models used by the project. </td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/repository</strong></td>
-          <td>Repository classes. They are responsible for interacting with the database, performing data operations, and querying the data storage.</td>
+          <td>Repository classes are responsible for interacting with the database and querying the data storage.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/service</strong></td>
-          <td>The service directory contains the service classes. These classes encapsulate the application's business logic, providing a layer of abstraction between controllers and repositories.</td>
+          <td>The service directory contains the service classes which encapsulate the application's business logic.</td>
         </tr>
         <tr>
           <td><strong>mate/academy/bookstore/security</strong></td>
-          <td>This directory is dedicated to security-related components, including JWT TOKEN. It may include classes responsible for authentication, authorization, and other.</td>
+          <td>This directory is dedicated to security-related components, including JWT TOKEN.</td>
         </tr>
         <tr>
           <td><strong>src/test</strong></td>
