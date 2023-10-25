@@ -20,7 +20,7 @@
         </maven.checkstyle.plugin.configLocation>
         <lombok.mapstruct.building.version>0.2.0</lombok.mapstruct.building.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <testcontainers.version>1.18.0</testcontainers.version>
+        <testcontainers.version>1.19.1</testcontainers.version>
         <jjwt.version>0.11.5</jjwt.version>
     </properties>
     <dependencyManagement>
