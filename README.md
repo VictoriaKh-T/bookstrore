@@ -90,7 +90,18 @@ To run this project and execute the tests, you will need:
 
 3. Use the build system (Maven or Gradle) to build the project.
 
-4. Run the application.
+4. Configure the Database:
+   - Open the application.properties or application.yml file in your project.
+   - Set the database connection properties. Replace database_name, your_login, and your_pass with your database settings:
+   
+    ```
+     spring.datasource.url=jdbc:mysql://localhost:3306/database_name
+     spring.datasource.username=your_login
+     spring.datasource.password=your_pass
+     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    ```
+
+5. Run the application.
 
 ## Additional Information
 
