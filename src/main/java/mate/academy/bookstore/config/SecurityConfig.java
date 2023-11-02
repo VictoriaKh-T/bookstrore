@@ -34,10 +34,12 @@ public class SecurityConfig {
         return http
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
+                .securityMatchers((matchers) -> matchers
+                        .requestMatchers("/bookstore/**", "/oauth/**")
+                )
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**")
-                                .permitAll()
+                                .requestMatchers("/auth/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
