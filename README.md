@@ -108,7 +108,7 @@ To run this project and execute the tests, you will need:
 ### Swagger Documentation
 
 This project uses Swagger for API documentation. You can access the API documentation by navigating 
-to http://localhost:8081/bookstore/swagger-ui/index.html after running the application.
+to http://localhost:8080/swagger-ui/index.html after running the application.
 
 
 ### Docker Containerization
